@@ -12,6 +12,7 @@ import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.backend.entity.MedicineMaster;
 import com.example.backend.repository.MedicineMasterRepository;
@@ -26,15 +27,16 @@ public class MedicineCatalogImporter implements CommandLineRunner {
     private final MedicineMasterRepository medicineRepo;
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
         // If already imported once, skip
         if (medicineRepo.count() > 0) {
-            System.out.println("✅ medicine_master already has data. Skipping CSV import.");
+            System.out.println("medicine_master already has data. Skipping CSV import.");
             return;
         }
 
-        // ✅ Track regNos we already saw (also catches duplicates inside CSV)
+        // Track regNos we already saw (also catches duplicates inside CSV)
         Set<String> seenRegNos = new HashSet<>();
 
         var resource = new ClassPathResource("data/medicine_master.csv");
@@ -42,7 +44,7 @@ public class MedicineCatalogImporter implements CommandLineRunner {
              CSVReader csvReader = new CSVReader(reader)) {
             String[] header = csvReader.readNext();
             if (header == null) return;
-            List<MedicineMaster> batch = new ArrayList<>(500);
+            List<MedicineMaster> batch = new ArrayList<>(100);
             int skippedDuplicates = 0;
             int importedCount = 0;
             String[] c;
@@ -71,11 +73,16 @@ public class MedicineCatalogImporter implements CommandLineRunner {
                 m.setRegNo(regNo);
                 m.setDosage(dosage);
                 batch.add(m);
-                if (batch.size() == 500) {
+
+                // Reduced batch size to 100 to avoid connection overload
+                if (batch.size() == 100) {
                     medicineRepo.saveAll(batch);
                     importedCount += batch.size();
                     batch.clear();
-                    System.out.println("\ud83d\udce5 Imported: " + importedCount + " medicines...");
+                    System.out.println("📥 Imported: " + importedCount + " medicines...");
+
+                    // Small delay between batches to prevent connection drop
+                    Thread.sleep(200);
                 }
             }
             if (!batch.isEmpty()) {
