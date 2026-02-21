@@ -87,9 +87,9 @@ public class MedicineCatalogImporter implements CommandLineRunner {
                 medicineRepo.saveAll(batch);
                 importedCount += batch.size();
             }
-            System.out.println("✅ Imported medicine_master successfully!");
-            System.out.println("⚠️ Skipped duplicate reg_no rows: " + skippedDuplicates);
-            System.out.println("📊 Final imported count: " + importedCount);
+            System.out.println("Imported medicine_master successfully!");
+            System.out.println("Skipped duplicate reg_no rows: " + skippedDuplicates);
+            System.out.println("Final imported count: " + importedCount);
         }
     }
 
