@@ -21,7 +21,12 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/pharmacies")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://raveenkaushalya.github.io",
+    "https://raveenkaushalya.github.io/Medicine-Availability-Tracker/"
+}, allowCredentials = "true")
 public class PharmacyMeController {
 
     private final PharmacyRepository pharmacyRepository;

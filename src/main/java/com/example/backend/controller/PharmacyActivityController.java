@@ -1,5 +1,12 @@
 package com.example.backend.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.backend.dto.response.ApiResponse;
 import com.example.backend.dto.response.InventoryActivityResponse;
 import com.example.backend.entity.Pharmacy;
@@ -7,14 +14,17 @@ import com.example.backend.entity.User;
 import com.example.backend.repository.InventoryActivityRepository;
 import com.example.backend.repository.PharmacyRepository;
 import com.example.backend.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/pharmacies/activity")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://raveenkaushalya.github.io",
+        "https://raveenkaushalya.github.io/Medicine-Availability-Tracker/"
+}, allowCredentials = "true")
 public class PharmacyActivityController {
 
     private final UserRepository userRepository;

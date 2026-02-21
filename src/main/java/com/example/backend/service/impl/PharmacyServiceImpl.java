@@ -45,7 +45,7 @@ public class PharmacyServiceImpl implements PharmacyService {
     private final UserRepository userRepository;
     private final PasswordSetupTokenRepository passwordSetupTokenRepository;
 
-    @Value("${app.frontend.base-url:http://localhost:3000}")
+    @Value("${app.frontend.base-url:https://raveenkaushalya.github.io/Medicine-Availability-Tracker/}")
     private String frontendBaseUrl;
 
     @Value("${app.pharmacy.password-setup-token-expiry-minutes:60}")
@@ -186,7 +186,7 @@ public class PharmacyServiceImpl implements PharmacyService {
         passwordSetupTokenRepository.save(token);
 
         // Setup link (admin copies and sends manually for now)
-        String setupLink = frontendBaseUrl + "/pharmacy/set-password?token=" + rawToken;
+        String setupLink = frontendBaseUrl + "/#/pharmacy/set-password?token=" + rawToken;
 
         return new PharmacyApproveResponse(username, setupLink, expiresAt);
     }

@@ -19,7 +19,12 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/pharmacies")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"}, allowCredentials = "true")
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://raveenkaushalya.github.io",
+    "https://raveenkaushalya.github.io/Medicine-Availability-Tracker/"
+}, allowCredentials = "true")
 
 public class PharmacyPasswordController {
 
@@ -31,7 +36,7 @@ public class PharmacyPasswordController {
     private String emailJsPublicKey;
     @Value("${emailjs.private-key}")
     private String emailJsPrivateKey;
-    @Value("${app.frontend.base-url:http://localhost:3000}")
+    @Value("${app.frontend.base-url:https://raveenkaushalya.github.io/Medicine-Availability-Tracker/}")
     private String frontendBaseUrl;
 
     private final PasswordSetupService passwordSetupService;
@@ -43,7 +48,7 @@ public class PharmacyPasswordController {
     public ApiResponse forgotPassword(@RequestBody ForgotPasswordRequest req) {
         String email = req.getEmail();
         String token = passwordSetupService.generateResetToken(email);
-        String resetLink = frontendBaseUrl + "/pharmacy/reset-password?token=" + token;
+        String resetLink = frontendBaseUrl + "/#/pharmacy/reset-password?token=" + token;
         // Send email using EmailJS REST API
         try {
             RestTemplate restTemplate = new RestTemplate();

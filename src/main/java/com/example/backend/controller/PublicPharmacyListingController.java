@@ -21,7 +21,12 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/public/pharmacies-with-inventory")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://raveenkaushalya.github.io",
+    "https://raveenkaushalya.github.io/Medicine-Availability-Tracker/"
+}, allowCredentials = "true")
 @RequiredArgsConstructor
 public class PublicPharmacyListingController {
     private final PharmacyRepository pharmacyRepository;

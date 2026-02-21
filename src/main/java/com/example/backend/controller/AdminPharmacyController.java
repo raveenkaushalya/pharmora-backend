@@ -19,7 +19,12 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/admin/pharmacies")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://raveenkaushalya.github.io",
+    "https://raveenkaushalya.github.io/Medicine-Availability-Tracker/"
+}, allowCredentials = "true")
 public class AdminPharmacyController {
     @GetMapping("/count")
     public long count(@RequestParam(defaultValue = "ALL") String status) {

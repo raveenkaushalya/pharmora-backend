@@ -72,6 +72,7 @@ public class MedicineCatalogImporter implements CommandLineRunner {
                 m.setCountry(country);
                 m.setRegNo(regNo);
                 m.setDosage(dosage);
+                m.setStatus(com.example.backend.entity.CatalogStatus.ACTIVE); // Ensure status is ACTIVE
                 batch.add(m);
 
                 // Reduced batch size to 100 to avoid connection overload
