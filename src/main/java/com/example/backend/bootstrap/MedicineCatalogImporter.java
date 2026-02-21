@@ -31,7 +31,8 @@ public class MedicineCatalogImporter implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         // If already imported once, skip
-        if (medicineRepo.count() > 0) {
+        long count = medicineRepo.count();
+        if (count > 0) {
             System.out.println("medicine_master already has data. Skipping CSV import.");
             return;
         }
@@ -43,7 +44,10 @@ public class MedicineCatalogImporter implements CommandLineRunner {
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
              CSVReader csvReader = new CSVReader(reader)) {
             String[] header = csvReader.readNext();
-            if (header == null) return;
+            if (header == null) {
+                System.out.println("CSV header is missing. Import aborted.");
+                return;
+            }
             List<MedicineMaster> batch = new ArrayList<>(100);
             int skippedDuplicates = 0;
             int importedCount = 0;
