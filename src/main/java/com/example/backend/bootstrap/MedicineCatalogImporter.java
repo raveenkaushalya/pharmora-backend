@@ -81,9 +81,6 @@ public class MedicineCatalogImporter implements CommandLineRunner {
                     importedCount += batch.size();
                     batch.clear();
                     System.out.println("📥 Imported: " + importedCount + " medicines...");
-
-                    // Small delay between batches to prevent connection drop
-                    Thread.sleep(200);
                 }
             }
             if (!batch.isEmpty()) {
