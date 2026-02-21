@@ -1,12 +1,9 @@
-# Build stage
-FROM eclipse-temurin:25-jdk-slim AS build
-WORKDIR /app
-COPY . .
-RUN ./mvnw clean package -DskipTests
+FROM eclipse-temurin:21-jdk-jammy
 
-# Run stage
-FROM eclipse-temurin:21-jre-slim
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+
+COPY target/Backend-0.0.1-SNAPSHOT.jar .
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["java", "-jar", "Backend-0.0.1-SNAPSHOT.jar"]
