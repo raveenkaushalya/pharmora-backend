@@ -186,7 +186,7 @@ public class PharmacyServiceImpl implements PharmacyService {
         passwordSetupTokenRepository.save(token);
 
         // Setup link (admin copies and sends manually for now)
-        String setupLink = frontendBaseUrl + "/#/pharmacy/set-password?token=" + rawToken;
+        String setupLink = frontendBaseUrl + "#/pharmacy/set-password?token=" + rawToken;
 
         return new PharmacyApproveResponse(username, setupLink, expiresAt);
     }

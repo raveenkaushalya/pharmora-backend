@@ -45,7 +45,7 @@ public class PublicPharmacyWithInventoryResponse {
         private Integer quantity;
         private BigDecimal price;
         private Boolean inStock;
-        @com.fasterxml.jackson.annotation.JsonFormat(shape = com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+        @com.fasterxml.jackson.annotation.JsonFormat(shape = com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
         private java.time.LocalDateTime updatedAt;
         private String category;
     }

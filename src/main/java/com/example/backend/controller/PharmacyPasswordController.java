@@ -48,7 +48,7 @@ public class PharmacyPasswordController {
     public ApiResponse forgotPassword(@RequestBody ForgotPasswordRequest req) {
         String email = req.getEmail();
         String token = passwordSetupService.generateResetToken(email);
-        String resetLink = frontendBaseUrl + "/#/pharmacy/reset-password?token=" + token;
+        String resetLink = frontendBaseUrl + "#/pharmacy/reset-password?token=" + token;
         // Send email using EmailJS REST API
         try {
             RestTemplate restTemplate = new RestTemplate();
